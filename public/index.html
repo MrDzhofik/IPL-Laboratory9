@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Четыре</title>
+    <script>
+        calc_url = location.protocol + "//" + location.host + "/calc/show.json"
+        function send_query() {
+            var frm = document.forms.calc_form;
+            var param_str = "";
+            var radios = frm.op;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    param_str = "?" +
+                        "power=" +
+                        "&commit=Yosh" +
+                        encodeURIComponent(frm.power.value)
+                    break;
+                }
+            }
+            if (param_str == "") return false;
+            var my_JSON_object = {};
+            var http_request = new XMLHttpRequest();
+            http_request.open("GET", calc_url + param_str, true);
+            http_request.onreadystatechange = function () {
+                var done = 4, ok = 200;
+                if (http_request.readyState == done &&
+                    http_request.status == ok) {
+                    my_JSON_object =
+                        JSON.parse(http_request.responseText);
+                    show_result(my_JSON_object);
+                }
+            };
+            http_request.send(null);
+            return false;
+        }
+        function show_result(data) {
+            var result = document.getElementById("result");
+            result.innerHTML = "<hr/>Result is: " + data.value +
+                "<hr/><p>" + Date() + "</p>";
+        }
+    </script>
+</head>
+
+<body>
+    <form name="calc_form" method="get">
+        <label for="Power">Введите количество цифр:</label>
+        <input id="power" name="power" type="number" min="1" max="6" step="1" />
+
+        <br />
+        <input name="commit" type="submit" value="Yosh" onclick="return send_query();" />
+    </form>
+    <div id="result"></div>
+</body>
+
+</html>
