@@ -1,10 +1,10 @@
 <h1>Здрасьте</h1>
-<%= form_tag('/calc/show.json', :method => "get", :remote => true, id: 'calc_form') do %>
+<%= form_tag('/calc/show.json', :method => "get", :remote => true, id: 'input_form') do %>
   <%= label_tag("Введите количество цифр в числе:") %>
   <br/>
   <%= number_field_tag(:power, nil, in: 1..6, step:1)%>
   <br/>
   <%= submit_tag("Yosh") %>
 <% end %>
-<div id='result'>
+<div id="result">
 </div>

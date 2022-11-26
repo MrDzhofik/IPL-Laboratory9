@@ -5,24 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Четыре</title>
     <script>
-        calc_url = location.protocol + "//" + location.host + "/calc/show.json"
+        input_url = location.protocol + "//" + location.host + "/calc/show.json"
         function send_query() {
-            var frm = document.forms.calc_form;
-            var param_str = "";
-            var radios = frm.op;
-            for (var i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    param_str = "?" +
-                        "power=" +
-                        "&commit=Yosh" +
-                        encodeURIComponent(frm.power.value)
-                    break;
-                }
-            }
+            var frm = document.forms.input_form;
+            param_str = "?" +
+                "power=" + frm.power.value
+            "&commit=Yosh"
             if (param_str == "") return false;
             var my_JSON_object = {};
             var http_request = new XMLHttpRequest();
-            http_request.open("GET", calc_url + param_str, true);
+            http_request.open("GET", input_url + param_str, true);
             http_request.onreadystatechange = function () {
                 var done = 4, ok = 200;
                 if (http_request.readyState == done &&
@@ -37,21 +29,51 @@
         }
         function show_result(data) {
             var result = document.getElementById("result");
-            result.innerHTML = "<hr/>Result is: " + data.value +
-                "<hr/><p>" + Date() + "</p>";
+            var table = document.createElement("table");
+            var tr = document.createElement('tr');
+            table.setAttribute("border", 1)
+            result.innerHTML = "<hr/>Result is:";
+            var th1 = document.createElement('th'); //column
+            var text1 = document.createTextNode("Порядковый номер"); //cell
+            var th2 = document.createElement('th'); //column
+            var text2 = document.createTextNode("Число"); //cell
+            th1.appendChild(text1);
+            th2.appendChild(text2);
+            tr.appendChild(th1);
+            tr.appendChild(th2);
+            table.appendChild(tr);
+            for (let i = 0; i < data.length; i++) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var text1 = document.createTextNode(i);
+                var text2 = document.createTextNode(data.value[i]);
+                td1.appendChild(text1);
+                td2.appendChild(text2);
+                td1.setAttribute("align", "center")
+                td2.setAttribute("align", "center")
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table.appendChild(tr);
+            }
+            result.appendChild(table)
+            result.innerHTML += "<hr/>"
         }
     </script>
 </head>
 
 <body>
-    <form name="calc_form" method="get">
+    <form name="input_form" method="get">
         <label for="Power">Введите количество цифр:</label>
         <input id="power" name="power" type="number" min="1" max="6" step="1" />
 
         <br />
         <input name="commit" type="submit" value="Yosh" onclick="return send_query();" />
     </form>
-    <div id="result"></div>
+    <a href= />Ссылочка (в Сибирь)</a>
+    <div id="result">
+
+    </div>
 </body>
 
 </html>
