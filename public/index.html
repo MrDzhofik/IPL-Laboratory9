@@ -9,8 +9,7 @@
         function send_query() {
             var frm = document.forms.input_form;
             param_str = "?" +
-                "power=" + frm.power.value
-            "&commit=Yosh"
+                "power=" + frm.power.value + "&commit=Yosh"
             if (param_str == "") return false;
             var my_JSON_object = {};
             var http_request = new XMLHttpRequest();
@@ -33,28 +32,28 @@
             var tr = document.createElement('tr');
             table.setAttribute("border", 1)
             result.innerHTML = "<hr/>Result is:";
-            var th1 = document.createElement('th'); //column
-            var text1 = document.createTextNode("Порядковый номер"); //cell
-            var th2 = document.createElement('th'); //column
-            var text2 = document.createTextNode("Число"); //cell
-            th1.appendChild(text1);
+            var th1 = document.createElement('th'); // это ячейка заголовка
+            var text1 = document.createTextNode("Порядковый номер"); // текст заголовка
+            var th2 = document.createElement('th');
+            var text2 = document.createTextNode("Число");
+            th1.appendChild(text1); // прикрепляем текст к заголовку
             th2.appendChild(text2);
-            tr.appendChild(th1);
+            tr.appendChild(th1); // прикрепляем заголовок к ряду
             tr.appendChild(th2);
-            table.appendChild(tr);
-            for (let i = 0; i < data.length; i++) {
-                var tr = document.createElement('tr');
-                var td1 = document.createElement('td');
-                var td2 = document.createElement('td');
-                var text1 = document.createTextNode(i);
+            table.appendChild(tr); // прикрепляем ряд к таблице
+            for (let i = 0; i < data.length; i++) { // это длина моего массива, которое я передевал через контроллер в format json
+                var tr = document.createElement('tr'); // создаем ряд
+                var td1 = document.createElement('td'); // ячейку
+                var td2 = document.createElement('td'); // вторую ячейку
+                var text1 = document.createTextNode(i); // пишем текст
                 var text2 = document.createTextNode(data.value[i]);
-                td1.appendChild(text1);
+                td1.appendChild(text1); // прикрепляем текст к ячейке
                 td2.appendChild(text2);
-                td1.setAttribute("align", "center")
+                td1.setAttribute("align", "center") // устанавливаем атрибут, чтобы текст был в центре
                 td2.setAttribute("align", "center")
-                tr.appendChild(td1);
+                tr.appendChild(td1); // прикрепляем ячейку к ряду
                 tr.appendChild(td2);
-                table.appendChild(tr);
+                table.appendChild(tr); // прикрепляем ряд к таблице
             }
             result.appendChild(table)
             result.innerHTML += "<hr/>"
