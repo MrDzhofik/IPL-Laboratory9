@@ -31,7 +31,7 @@
             var table = document.createElement("table");
             var tr = document.createElement('tr');
             table.setAttribute("border", 1)
-            result.innerHTML = "<hr/>Result is:";
+            result.innerHTML = "<hr/>Result is:</br>";
             var th1 = document.createElement('th'); // это ячейка заголовка
             var text1 = document.createTextNode("Порядковый номер"); // текст заголовка
             var th2 = document.createElement('th');
@@ -49,6 +49,7 @@
                 var text2 = document.createTextNode(data.value[i]);
                 td1.appendChild(text1); // прикрепляем текст к ячейке
                 td2.appendChild(text2);
+                td2.setAttribute("id", i)
                 td1.setAttribute("align", "center") // устанавливаем атрибут, чтобы текст был в центре
                 td2.setAttribute("align", "center")
                 tr.appendChild(td1); // прикрепляем ячейку к ряду
@@ -56,7 +57,7 @@
                 table.appendChild(tr); // прикрепляем ряд к таблице
             }
             result.appendChild(table)
-            result.innerHTML += "<hr/>"
+            result.innerHTML += "<p>Количество найденных чисел: " + data.length + "</p><hr/>"
         }
     </script>
 </head>
@@ -67,7 +68,7 @@
         <input id="power" name="power" type="number" min="1" max="6" step="1" />
 
         <br />
-        <input name="commit" type="submit" value="Yosh" onclick="return send_query();" />
+        <input name="commit" id="Yosh" type="submit" value="Yosh" onclick="return send_query();" />
     </form>
     <a href= />Ссылочка (в Сибирь)</a>
     <div id="result">
