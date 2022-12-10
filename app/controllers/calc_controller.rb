@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# controller class
 class CalcController < ApplicationController
   def input
     render layout: false
